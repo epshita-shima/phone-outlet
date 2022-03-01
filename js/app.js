@@ -28,3 +28,11 @@ const displaySearchResult = (data) => {
         searchResult.appendChild(div);
     })
 }
+const loadPhoneDetails = (dataId) => {
+    console.log('hello', dataId);
+    const url = `https://openapi.programming-hero.com/api/phone/${dataId}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => console.log(data));
+}
+
