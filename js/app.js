@@ -6,8 +6,6 @@ const searchPhone = () => {
         .then(res => res.json())
         .then(data => displaySearchResult(data.data.slice(0, 20)));
 }
-
-
 const displaySearchResult = (data) => {
     const searchResult = document.getElementById('search-result');
     if (data.length == 0) {
@@ -29,11 +27,4 @@ const displaySearchResult = (data) => {
         `;
         searchResult.appendChild(div);
     })
-}
-const loadPhoneDetails = (dataId) => {
-    console.log('hello', dataId);
-    const url = `https://openapi.programming-hero.com/api/phone/${dataId}`
-    fetch(url)
-        .then(res => res.json())
-        .then(data => console.log(data));
 }
