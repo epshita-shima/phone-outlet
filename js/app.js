@@ -2,6 +2,8 @@
 const searchPhone = () => {
     const searchField = document.getElementById('search-field').value;
     document.getElementById('search-field').value = '';
+    const phoneDetails = document.getElementById('phone-explore');
+    phoneDetails.textContent = '';
     const spinner = document.getElementById('spinner');
     spinner.style.display = "block";
     if (searchField == '') {
