@@ -4,38 +4,49 @@ const searchPhone = () => {
     document.getElementById('search-field').value = '';
     const spinner = document.getElementById('spinner');
     spinner.style.display = "block";
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchField}`;
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displaySearchResult(data.data.slice(0, 20)));
+    if (searchField == '') {
+        window.alert('please write something');
+        spinner.style.display = "none";
+    }
+    else {
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchField}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displaySearchResult(data.data.slice(0, 20)));
+    }
 }
 // display all data
 const displaySearchResult = (data) => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
     if (data.length == 0) {
-        window.alert('searching product in not available');
+        const errorMessage = document.getElementById("failure");
+        errorMessage.style.textAlign = "center";
         const spinner = document.getElementById('spinner');
         spinner.style.display = "none";
+        document.getElementById("phone-name").innerText = "No Phone Found!";
     }
-    data.forEach(data => {
-        // console.log(data);
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
-        <div class="card h-100 p-3">
-            <img src="${data.image}" class="card-img-top " alt="...">
-            <div class="card-body">
-                <h5 class="card-title">${data.brand}</h5>
-                <p class="card-text">${data.phone_name}</p>
+    else {
+        data.forEach(data => {
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `
+            <div class="card h-100 p-3">
+                <img src="${data.image}" class="card-img-top " alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${data.brand}</h5>
+                    <p class="card-text">${data.phone_name}</p>
+                </div>
+                <button onclick="loadPhoneDetails('${data.slug}')" class="btn btn-success">Explore</button>
             </div>
-            <button onclick="loadPhoneDetails('${data.slug}')" class="btn btn-success">Explore</button>
-        </div>
-        `;
-        searchResult.appendChild(div);
-        const spinner = document.getElementById('spinner');
-        spinner.style.display = "none";
-    })
+            `;
+            searchResult.appendChild(div);
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = "none";
+            document.getElementById("failure").style.display = "none";
+        })
+    }
+
 }
 
 // loading data function declear
@@ -55,7 +66,7 @@ const displayPhoneDetail = (phone) => {
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
-   <div class="d-flex"> <div><img src="${phone.image}" class="card-img-top  m-3 w-100" alt="..."></div>
+   <img src="${phone.image}" class="card-img-top  mx-auto w-25" alt="...">
    <div class="card-body p-3 ms-5">
        <p class="card-title"><b>Brand:</b> ${phone.brand}</p>
        <p class="card-title"><b>Name:</b> ${phone.name}</p>
@@ -73,8 +84,7 @@ const displayPhoneDetail = (phone) => {
        <p class="card-text"><b>Radio:</b> ${phone.others.Radio}</p>
        <p class="card-text"><b>USB:</b> ${phone.others.USB}</p>
     </div>
-    </div>
-    `;
+     `;
     phoneDetails.appendChild(div);
 }
 
