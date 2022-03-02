@@ -1,43 +1,57 @@
+// to get data
 const searchPhone = () => {
     const searchField = document.getElementById('search-field').value;
     document.getElementById('search-field').value = '';
+    const spinner = document.getElementById('spinner');
+    spinner.style.display = "block";
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchField}`;
     fetch(url)
         .then(res => res.json())
         .then(data => displaySearchResult(data.data.slice(0, 20)));
 }
+// display all data
 const displaySearchResult = (data) => {
     const searchResult = document.getElementById('search-result');
+    searchResult.textContent = '';
     if (data.length == 0) {
-        console.log('searching product in not available');
+        window.alert('searching product in not available');
+        const spinner = document.getElementById('spinner');
+        spinner.style.display = "none";
     }
     data.forEach(data => {
         // console.log(data);
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
-        <div class="card h-100">
+        <div class="card h-100 p-3">
             <img src="${data.image}" class="card-img-top " alt="...">
             <div class="card-body">
                 <h5 class="card-title">${data.brand}</h5>
-                <p class="card-text">${data.slug}</p>
+                <p class="card-text">${data.phone_name}</p>
             </div>
             <button onclick="loadPhoneDetails('${data.slug}')" class="btn btn-success">Explore</button>
         </div>
         `;
         searchResult.appendChild(div);
+        const spinner = document.getElementById('spinner');
+        spinner.style.display = "none";
     })
 }
+
+// loading data function declear
 const loadPhoneDetails = (dataId) => {
     console.log('hello', dataId);
     const url = `https://openapi.programming-hero.com/api/phone/${dataId}`
     fetch(url)
         .then(res => res.json())
-        .then(data => displayMealDetail(data.data));
+        .then(data => displayPhoneDetail(data.data));
 }
-const displayMealDetail = (phone) => {
+
+// display details data function
+const displayPhoneDetail = (phone) => {
     console.log(phone);
     const phoneDetails = document.getElementById('phone-explore');
+    phoneDetails.textContent = '';
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
@@ -58,8 +72,8 @@ const displayMealDetail = (phone) => {
        <p class="card-text"><b>NFC:</b> ${phone.others.NFC}</p>
        <p class="card-text"><b>Radio:</b> ${phone.others.Radio}</p>
        <p class="card-text"><b>USB:</b> ${phone.others.USB}</p>
-      
-   </div></div>
+    </div>
+    </div>
     `;
     phoneDetails.appendChild(div);
 }

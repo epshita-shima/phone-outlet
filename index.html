@@ -17,6 +17,8 @@
 
     <div class="container">
         <h2 class="text-center text-success mt-3">Search your phone</h2>
+
+        <!-- search button -->
         <div class="input-group mb-3 w-50 mx-auto">
             <input type="text" id="search-field" class="form-control" placeholder="Search the food you want"
                 aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -24,7 +26,12 @@
                 id="button-search">Search</button>
         </div>
 
-
+        <!-- spinner -->
+        <div class="text-center">
+            <div class="spinner-border text-success" id="spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
         <!-- show explore on phone -->
         <div id="phone-explore" class="w-75 mx-auto mb-5">
         </div>
