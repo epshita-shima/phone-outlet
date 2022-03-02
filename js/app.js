@@ -41,17 +41,25 @@ const displayMealDetail = (phone) => {
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
-    <img src="${phone.image}" class="card-img-top " alt="...">
-    <div class="card-body p-3">
-        <h5 class="card-title">Brand: ${phone.brand}</h5>
-        <h5 class="card-title">Name: ${phone.name}</h5>
-        <p class="card-text">release-date: ${phone.releaseDate ? phone.releaseDate : 'no relseaseDate'}</p>
-        <p class="card-text">Chipset: ${phone.mainFeatures.chipSet}</p>
-        <p class="card-text">Display Size: ${phone.mainFeatures.displaySize}</p>
-        <p class="card-text">Memory: ${phone.mainFeatures.memory}</p>
-        <p class="card-text">Storage: ${phone.mainFeatures.storage}</p>
-       
-    </div>
+   <div class="d-flex"> <div><img src="${phone.image}" class="card-img-top  m-3 w-100" alt="..."></div>
+   <div class="card-body p-3 ms-5">
+       <p class="card-title"><b>Brand:</b> ${phone.brand}</p>
+       <p class="card-title"><b>Name:</b> ${phone.name}</p>
+      
+       <p class="card-text"><b>Chipset:</b> ${phone.mainFeatures.chipSet}</p>
+       <p class="card-text"><b>Display Size:</b> ${phone.mainFeatures.displaySize}</p>
+       <p class="card-text"><b>Memory:</b> ${phone.mainFeatures.memory}</p>
+       <p class="card-text"><b>Storage:</b> ${phone.mainFeatures.storage}</p>
+       <p class="card-text"><b>Release Date:</b> ${phone.releaseDate ? phone.releaseDate : 'no relsease Date'}</p>
+       <p class="card-text"><b>Sensors:</b> ${phone.mainFeatures.sensors}</p>
+       <p class="card-text"><b>WLAN:</b> ${phone.others.WLAN}</p>
+       <p class="card-text"><b>Bluetooth:</b> ${phone.others.Bluetooth}</p>
+       <p class="card-text"><b>GPS:</b> ${phone.others.GPS}</p>
+       <p class="card-text"><b>NFC:</b> ${phone.others.NFC}</p>
+       <p class="card-text"><b>Radio:</b> ${phone.others.Radio}</p>
+       <p class="card-text"><b>USB:</b> ${phone.others.USB}</p>
+      
+   </div></div>
     `;
     phoneDetails.appendChild(div);
 }
